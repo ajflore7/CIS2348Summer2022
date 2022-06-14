@@ -20,7 +20,7 @@ print('You are', age, 'years old')
 
 if Current_month == Birth_month and Current_day == Birth_day:
     age = Current_year - Birth_year
-    print('WOW today is your birthday, Happy Birthday!', 'You are', age, 'years old')
+    print('WOW today is your birthday, Happy Birthday!')
 else:
     print('Today is not your Birthday.')
 #I was not able to fix the age if the birthday had not passed yetz can you make a comment and fix the code so I know how to do it?
