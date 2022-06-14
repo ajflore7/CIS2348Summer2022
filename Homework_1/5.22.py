@@ -26,7 +26,7 @@ else:
     print('Service 1:', first_service + ',', '${:,.0f}'.format(cost_first_service))
 
 if second_service == '-':
-    print('Service 1: No service')
+    print('Service 2: No service')
 else:
     print('Service 2:', second_service + ',', '${:,.0f}'.format(cost_second_service))
 
