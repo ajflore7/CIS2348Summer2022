@@ -1,17 +1,27 @@
 #Anthony Flores 1792816
 
-print('Birthday Calculator')
-print('Enter current date below ')
-Current_month = int(input('Month (MM):'))
-Current_day = int(input('Day (DD):'))
-Current_year = int(input('Year (YYYY):'))
-
 print('When is your Birthday?')
 Birth_month = int(input('Month (MM):'))
 Birth_day = int(input('Day (DD):'))
 Birth_year = int(input('Year (YYYY):'))
-age = Current_year - Birth_year
+
+current_date = [Current_month, '/', Current_day, '/', Current_year]
+date_of_birth = [Birth_month, '/', Birth_day, '/', Birth_year]
+
+if (Current_month or Current_day in current_date) > (Birth_month or Birth_day in date_of_birth):
+    age = Current_year - Birth_year
+else:
+    age = Current_year - Birth_year 
+
+if (Current_month or Current_day in current_date) < (Birth_month or Birth_day in date_of_birth):
+    age = Current_year - Birth_year
+
+print('You are', age, 'years old')
 
 if Current_month == Birth_month and Current_day == Birth_day:
-        print('WOW today is your birthday, Happy Birthday!', age)
-print('You are', age, 'years old')
+    age = Current_year - Birth_year
+    print('WOW today is your birthday, Happy Birthday!', 'You are', age, 'years old')
+else:
+    print('Today is not your Birthday.')
+#I was not able to fix the age if the birthday had not passed yetz can you make a comment and fix the code so I know how to do it?
+#thank you
