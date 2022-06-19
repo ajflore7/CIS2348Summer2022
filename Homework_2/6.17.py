@@ -1,3 +1,4 @@
+#Anthony Flores 1792816
 word = input()
 password = ''
 for ch in word:
