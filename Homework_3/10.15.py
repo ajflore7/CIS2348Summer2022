@@ -1,10 +1,10 @@
 # 1792816 Anthony Flores 10.15
 
 class Team:
-    def __init__(self):
-        self.team_name = 'none'
-        self.team_wins = 0
-        self.team_loses = 0
+    def __init__(self, name='none', wins=0, losses=0):
+        self.team_name = name
+        self.team_wins = wins
+        self.team_losses = losses
 
     def get_win_percentage(self):
         percentage = self.team_wins / (self.team_wins + self.team_loses)
