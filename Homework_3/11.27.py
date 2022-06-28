@@ -45,10 +45,9 @@ while True:
     elif option == 'd':
         jersey = int(input('Enter a player\'s jersey number:\n'))
         print()
-
-    if jersey in list(players.keys()):
-        del players[jersey]
-        print()
+        if jersey in list(players.keys()):
+            del players[jersey]
+            print()
 
     elif option == 'u':
         jersey = int(input('Enter a player\'s jersey number:\n'))
