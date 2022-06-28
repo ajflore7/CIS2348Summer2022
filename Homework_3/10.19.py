@@ -1,5 +1,5 @@
 # 1792816 Anthony Flores 10.19
-
+# finished the last touches only got a 21/29 in zylabs
 
 class ItemToPurchase:
 
