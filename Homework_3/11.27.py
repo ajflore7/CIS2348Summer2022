@@ -1,5 +1,5 @@
 # 1792816 Anthony Flores 11.27
-
+# did some finishing touches to get 11/11
 def printroster():
     ky = list(players.keys())
     ky.sort()
@@ -59,13 +59,14 @@ while True:
         rating = int(input('Enter a rating:\n'))
         keys = list(players.keys())
         keys.sort()
-        print('\nAbove %d' % rating)
-        print()
+        print('\nABOVE %d' % rating)
 
         count = 0
         for key in keys:
             if players[key] > rating:
-                print('jersey number: %d, Rating: %d' % (key, players[key]))
+                print('Jersey number: %d, Rating: %d' % (key, players[key]))
                 count += 1
+        print()
+        
         if count == 0:
             print('No players found above %d rating' % rating)
