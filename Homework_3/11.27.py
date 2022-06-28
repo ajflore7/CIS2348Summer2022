@@ -34,27 +34,34 @@ while True:
         break
     if option == 'o':
         printroster()
+        print()
+        
     elif option == 'a':
         jersey = int(input('Enter new player\'s jersey number:\n'))
         rating = int(input('Enter the player\'s rating:\n'))
         players[jersey] = rating
-
+        print()
+        
     elif option == 'd':
         jersey = int(input('Enter a player\'s jersey number:\n'))
+        print()
 
     if jersey in list(players.keys()):
         del players[jersey]
+        print()
 
     elif option == 'u':
         jersey = int(input('Enter a player\'s jersey number:\n'))
         rating = int(input('Enter a new rating for players:'))
         players[jersey] = rating
+        print()
 
     elif option == 'r':
         rating = int(input('Enter a rating:\n'))
         keys = list(players.keys())
         keys.sort()
         print('\nAbove %d' % rating)
+        print()
 
         count = 0
         for key in keys:
