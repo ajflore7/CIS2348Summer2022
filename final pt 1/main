@@ -1,1 +1,25 @@
+import csv
+
+student_data = []
+
+with open('StudentsMajorsList.csv', 'r') as file:
+    data = csv.reader(file)
+
+    for lines in data:
+        print(lines)
+        print()
+
+with open('GPAList.csv', 'r')as file:
+    data = csv.reader(file)
+
+    for lines in data:
+        print(lines)
+        print()
+
+with open('GraduationDatesList.csv','r')as file:
+    data = csv.reader(file)
+
+    for lines in data:
+        print(lines)
+        print()
 
