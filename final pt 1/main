@@ -1,25 +1,38 @@
 import csv
 
-student_data = []
 
-with open('StudentsMajorsList.csv', 'r') as file:
-    data = csv.reader(file)
+class StudentAcademics:
 
-    for lines in data:
-        print(lines)
-        print()
+    def __init__(self, student_id, last_name, first_name, major, disciplinary_action, gpa, graduation_date):
+        self.student_id = student_id
+        self.student_ln = last_name
+        self.student_fn = first_name
+        self.major = major
+        self.discipline = disciplinary_action
+        self.gpa = gpa
+        self.grad_date = graduation_date
 
-with open('GPAList.csv', 'r')as file:
-    data = csv.reader(file)
 
-    for lines in data:
-        print(lines)
-        print()
+class Roster:
 
-with open('GraduationDatesList.csv','r')as file:
-    data = csv.reader(file)
+    def __init__(self):
+        self.students = {}
 
-    for lines in data:
-        print(lines)
-        print()
+    def get_student(self, student_id):
+        return self.students[student_id]
 
+    def add_student(self, student):
+        self.students[student.student_id] = student
+
+    def get_all_students(self):
+        all_students = []
+        for student_id in self.students:
+            student = self.students[student_id]
+            all_students.appened(student)
+
+        return all_students
+
+    def get_students_using_gpa(self):
+        students_with_gpa = []
+        for student_id in self.students:
+            student = self.students[student_id]
