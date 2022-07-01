@@ -6,12 +6,12 @@ class StudentAcademics:  # class that has all the requirements for student acade
 
     def __init__(self, student_id, last_name, first_name, major, disciplinary_action, gpa, graduation_date):
         self.student_id = student_id
-        self.student_ln = last_name
-        self.student_fn = first_name
+        self.last_name = last_name
+        self.first_name = first_name
         self.major = major
         self.disciplinary_action = disciplinary_action
         self.gpa = gpa
-        self.grad_date = graduation_date
+        self.graduation_date = graduation_date
 
 
 class Roster:  # dict for the students
@@ -39,6 +39,7 @@ class Roster:  # dict for the students
             student = self.students[student_id]
             if student.gpa == gpa:
                 students_with_gpa.append(student)
+
             return students_with_gpa
 
     def get_students_using_major(self, major):
@@ -47,14 +48,16 @@ class Roster:  # dict for the students
             student = self.students[student_id]
             if student.major == major:
                 students_in_major.append(student)
+
         return students_in_major
 
-    def get_students_by_grad_date(self, grad_date):
+    def get_students_by_grad_date(self, graduation_date):
         students_by_grad_date = []
         for student_id in self.students:
             student = self.students[student_id]
-            if student.grad_date == grad_date:
+            if student.grad_date == graduation_date:
                 students_by_grad_date.append(student)
+
             return students_by_grad_date
 
     def get_students_by_disciplinary_action(self, disciplinary_action):
@@ -63,11 +66,13 @@ class Roster:  # dict for the students
             student = self.students[student_id]
             if student.disciplinary_action == disciplinary_action:
                 students_by_disciplinary_action.append(student)
+
             return students_by_disciplinary_action
 
 
 def main():
     roster = Roster()
+
     with open('StudentsMajorsList.csv') as csvfile:  # reads csv file
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -79,23 +84,31 @@ def main():
             grad_date = ['none']
             disciplinary_action = ['none']
             student = StudentAcademics(student_id, ln, fn, major, gpa, grad_date, disciplinary_action)
-            roster.add_student(student)
+            roster.add_student(student)  # adds to roster
 
     with open('GPAList.csv') as csvfile:  # reads csv file
         reader = csv.DictReader(csvfile)
         for row in reader:
             student_id = row['student_id']
-            gpa = row['gpa']
-            student = roster.get_student(student_id)
+            gpa = row['GPA']
+            student = roster.get_student(student_id)  # adds to roster
             student.gpa = gpa
 
     with open('GraduationDatesList.csv') as csvfile:  # reads csv file
         reader = csv.DictReader(csvfile)
         for row in reader:
             student_id = row['student_id']
-            grad_date = row['graduation_date']
+            graduation_date = row['graduation_date']
             student = roster.get_student(student_id)
-            student.graduation_date = grad_date
+            student.graduation_date = graduation_date
+
+    with open('DisciplinedStudents.csv') as csvfile:  # reads csv file
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            student_id = row['student_id']
+            disciplinary_action = row['disciplinary_action']
+            student = roster.get_student(student_id)
+            student.disciplinary_action = disciplinary_action
 
     with open('FullRoster.csv',
               mode='w') as csvfile:  # the student objects from the read files above are written in this file
@@ -112,23 +125,22 @@ def main():
                    'graduation_date': student.graduation_date,
                    'disciplinary_action': student.disciplinary_action}
             writer.writerow(row)
-        majors = set()
-        for student_id in roster.students:
-            student = roster.students[student_id]
-            majors.add(student.major)
-        for major in majors:
-            students_in_major = roster.get_students_using_major(major)
-            file_name = major.replace(" ", "") + 'Students.csv'
-            with open(file_name, mode='w') as csvfile:
-                fieldnames = ['student_id', 'last_name', 'first_name', 'graduation_date', 'disciplinary_action']
-                writer = csv.DictWriter(csv, fieldnames=fieldnames)
-                writer.writeheader()
-                for student in students_in_major:
-                    row = {'student_id': student.student_id,
-                           'first_name': student.last_name,
-                           'graduation_date': student.graduation_date,
-                           'disciplinary_action': student.disciplinary_action}
-                    writer.writerow(row)
+    majors = set()
+    for student_id in roster.students:
+        student = roster.students[student_id]
+        majors.add(student.major)
+
+    for major in majors:
+        students_in_major = roster.get_students_using_major(major)
+        file_name = major.replace(" ", "") + 'Students.csv'  # replaces the spaces in the file
+        with open(file_name, mode='w') as csvfile:
+            fieldnames = ['student_id', 'last_name', 'first_name', 'graduation_date', 'disciplinary_action']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for student in students_in_major:
+                row = {'student_id': student.student_id, 'first_name': student.last_name,
+                       'graduation_date': student.graduation_date, 'disciplinary_action': student.disciplinary_action}
+                writer.writerow(row)  # updates the majors for the roster
 
     with open('ScholarshipCandidates.csv',
               mode='w') as csvfile:  # writes data for students who meet scholarship critera
@@ -138,11 +150,11 @@ def main():
 
         for student_id in roster.students:
             student = roster.students[student_id]
-            if (student.gpa >= 3.8) and (student.graduation_date == None) and (student.disciplinary_action == None):
+            if (student.gpa >= 3.8) and (student.graduation_date is None) and (student.disciplinary_action is None):
                 row = {'student_id': student.student_id, 'last_name': student.last_name,
                        'first_name': student.first_name,
                        'major': student.major, 'gpa': student.gpa}
-                writer.writerow(row)
+                writer.writerow(row)  # also updates the roster if disciplined students is none
 
     with open('DisciplinedStudents.csv',
               mode='w') as csvfile:  # writes data for students who have been disciplined and write into a new file
@@ -152,10 +164,6 @@ def main():
         for student_id in roster.students:
             student = roster.students[student_id]
             if student.disciplinary_action == 'Y':
-                row = {'student_id': student.student_id,
-                       'last_name': student.last_name,
-                       'first_name': student.first_name,
-                       'graduation_date': student.graduation_date}
-                writer.writerow(row)
-
-
+                row = {'student_id': student.student_id, 'last_name': student.last_name,
+                       'first_name': student.first_name, 'graduation_date': student.graduation_date}
+                writer.writerow(row)  # updates the roster with the new disciplined students
