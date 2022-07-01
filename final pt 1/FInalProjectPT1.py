@@ -1,4 +1,4 @@
-# Anthony Flores 1792816
+# Anthony Flores 1792816 final project pt 1
 import csv
 
 
