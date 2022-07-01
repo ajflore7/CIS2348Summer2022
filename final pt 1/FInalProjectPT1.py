@@ -16,16 +16,16 @@ class StudentAcademics:  # class that has all the requirements for student acade
 
 class Roster:  # dict for the students
 
-    def __init__(self):
+    def __init__(self): 
         self.students = {}
 
-    def get_student(self, student_id):
+    def get_student(self, student_id): # gathers a specific student
         return self.students[student_id]
 
-    def add_student(self, student):
+    def add_student(self, student): # to add a new student to the roster
         self.students[student.student_id] = student
 
-    def get_all_students(self):
+    def get_all_students(self): # no set perameters, gathers all the students and appends new data
         all_students = []
         for student_id in self.students:
             student = self.students[student_id]
@@ -33,7 +33,7 @@ class Roster:  # dict for the students
 
         return all_students
 
-    def get_students_using_gpa(self, gpa):
+    def get_students_using_gpa(self, gpa): # defined fucntion for gpa in roster to appened new data
         students_with_gpa = []
         for student_id in self.students:
             student = self.students[student_id]
@@ -42,7 +42,7 @@ class Roster:  # dict for the students
 
             return students_with_gpa
 
-    def get_students_using_major(self, major):
+    def get_students_using_major(self, major): # defined fucntion for majors in roster to appened new data
         students_in_major = []
         for student_id in self.students:
             student = self.students[student_id]
@@ -51,7 +51,7 @@ class Roster:  # dict for the students
 
         return students_in_major
 
-    def get_students_by_grad_date(self, graduation_date):
+    def get_students_by_grad_date(self, graduation_date): # defined fucntion for graduation_date in roster to appened new data
         students_by_grad_date = []
         for student_id in self.students:
             student = self.students[student_id]
@@ -60,7 +60,7 @@ class Roster:  # dict for the students
 
             return students_by_grad_date
 
-    def get_students_by_disciplinary_action(self, disciplinary_action):
+    def get_students_by_disciplinary_action(self, disciplinary_action): # defined function disciplinary_action in roster to append new data
         students_by_disciplinary_action = []
         for student_id in self.students:
             student = self.students[student_id]
@@ -130,7 +130,7 @@ def main():
         student = roster.students[student_id]
         majors.add(student.major)
 
-    for major in majors:
+    for major in majors: 
         students_in_major = roster.get_students_using_major(major)
         file_name = major.replace(" ", "") + 'Students.csv'  # replaces the spaces in the file
         with open(file_name, mode='w') as csvfile:
