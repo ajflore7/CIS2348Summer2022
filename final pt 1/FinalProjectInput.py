@@ -33,7 +33,7 @@ class Roster:  # dict for the students
 
         return all_students
 
-    def get_students_using_gpa(self):
+    def get_students_using_gpa(self): # a funtion that will be used to call gpas in a certain order
         gpa_list = []
         student_list = []
         for student in self.students.values():
@@ -46,7 +46,7 @@ class Roster:  # dict for the students
                     student_list.append(student)
         return student_list
 
-    def get_students_using_major(self, major):
+    def get_students_using_major(self, major): 
         students_in_major = {}
         for student_id in self.students:
             student = self.students[student_id]
@@ -54,7 +54,7 @@ class Roster:  # dict for the students
                 students_in_major[student_id] = student
         return students_in_major
 
-    def get_students_by_grad_date(self):
+    def get_students_by_grad_date(self): # a function that will use grad date in a certain order and format and will need to be called in the main code
         grad_date_list = []
         student_list = []
         for student in self.students.values():
@@ -70,7 +70,7 @@ class Roster:  # dict for the students
         return student_list
 
 
-    def get_students_using_last_name(self):
+    def get_students_using_last_name(self): # a function that gets last names and sorts them in such order. 
         last_names = []
         student_list = []
         for student in self.students.values():
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     with open('GraduationDatesList.csv', mode= 'r') as csvfile:  # reads csv file
         reader = csv.reader(csvfile)
         for row in reader:
-            student_id = row[0]
+            student_id = row[0] # starts at row 0 which is counting the first element in that row 
             graduation_date = row[1]
             student = roster.get_student(student_id)
             student.graduation_date = graduation_date
@@ -122,9 +122,9 @@ if __name__ == '__main__':
               mode='w', newline='') as csvfile:  # the student objects from the read files above are written in this file
         fieldnames = ['student_id', 'last_name', 'first_name', 'major', 'gpa', 'graduation_date', 'disciplinary_action']
         writer = csv.writer(csvfile)
-        all_students = roster.get_students_using_last_name()
-        for student in all_students:
-            row = [student.student_id,
+        all_students = roster.get_students_using_last_name() # uses the function of students last names and sorts them 
+        for student in all_students: # order in which Full Roster needs to be
+            row = [student.student_id, 
                    student.first_name,
                    student.last_name,
                    student.major,
@@ -144,7 +144,7 @@ if __name__ == '__main__':
         with open(file_name, mode='w', newline='') as csvfile:
             writer = csv.writer(csvfile)
 
-            for student_ID in sorted(students_in_major.keys()):
+            for student_ID in sorted(students_in_major.keys()): # sorts the neccesary students by major which than updates the csv file.
                 student = roster.students[student_ID]
                 row = [student.student_id, student.last_name,
                        student.graduation_date, student.disciplinary_action]
@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
         for student in roster.get_students_using_gpa():
             student_date = datetime.datetime.strptime(student.graduation_date, '%m/%d/%Y').date() # compares date by a specific format as stated
-            if (float(student.gpa) >= 3.8) and (student_date > datetime.date.today()) and (student.disciplinary_action != 'Y'):
+            if (float(student.gpa) >= 3.8) and (student_date > datetime.date.today()) and (student.disciplinary_action != 'Y'): # looks for gpa that is greater than 3.8 and adds to the csv file of eligible students
                 row = [student.student_id, student.last_name,
                        student.first_name,
                        student.major, student.gpa]
@@ -166,8 +166,8 @@ if __name__ == '__main__':
               mode='w', newline='') as csvfile:  # writes data for students who have been disciplined and write into a new file
         writer = csv.writer(csvfile)
 
-        for student in roster.get_students_by_grad_date():
-            if student.disciplinary_action == 'Y':
+        for student in roster.get_students_by_grad_date(): # gathers students by graduation date
+            if student.disciplinary_action == 'Y': # if student has been diciplined it will appear on csv.
                 row = [student.student_id, student.last_name,
                        student.first_name, student.graduation_date]
                 writer.writerow(row)  # updates the roster with the new disciplined students
