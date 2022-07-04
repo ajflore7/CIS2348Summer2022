@@ -170,4 +170,4 @@ if __name__ == '__main__':
             if student.disciplinary_action == 'Y': # if student has been diciplined it will appear on csv.
                 row = [student.student_id, student.last_name,
                        student.first_name, student.graduation_date]
-                writer.writerow(row)  # updates the roster with the new disciplined students
+                writer.writerow(row)  # updates the roster with the new disciplined students 
