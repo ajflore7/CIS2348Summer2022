@@ -1,5 +1,4 @@
 # Anthony Flores 1792816
-# Anthony Flores 1792816
 import csv
 import datetime
 
@@ -128,21 +127,37 @@ if __name__ == '__main__':
             student = roster.get_student(student_id)
             student.graduation_date = graduation_date
 
-user_input = input('Enter major and GPA or enter "q" to quit: \n')
-    while user_input != 'q':
+    user_input = input('Enter major and GPA or enter "q" to quit: \n') # this is the query that will ask for user input
+    while user_input != 'q': # the q is if the user wants to quit out of the query
         academics = ''
         grade = ''
         count1 = 0
         count2 = 0
-        for line in all_majors:
+        for line in all_majors: # gathers majors out of the query counts the number of majors
             if line in user_input:
                 academics = line
                 count1 += 1
-        user_input_split = user_input.split(' ')
-        for line in user_input_split:
+        user_input_split = user_input.split(' ') # splits the user input
+
+        for line in user_input_split: # gathers gpa out of the query counts the number of gpa
             if floats(line):
                 grade = line
                 count2 += 1
         if count1 != 1 and count2 != 1:
             print('No such student')
-        
+        all_students = roster.get_all_students()
+
+        print('Your student(s):') # this will output what students matches the query input
+        for student in all_students:
+            student_date = datetime.datetime.strptime(student.graduation_date, '%m/%d/%Y').date() # sets date as the correct format
+            if student.major == academics and student_date > datetime.date.today() and disciplinary_action != 'Y': #checks to see if they meet the required attriutes
+                if (float(grade) - .1) < float(student.gpa) < (float(grade) + .1):
+                    print(f'{student.student_id}, {student.first_name}, {student.last_name}, {student.gpa}')
+
+        print('You may, also, consider:')
+        for student in all_students:
+            student_date = datetime.datetime.strptime(student.graduation_date, '%m/%d/%Y').date() # sets date as the correct format
+            if student.major == academics and student_date > datetime.date.today() and disciplinary_action != 'Y': #checks to see if they meet the required attriutes
+                if (float(grade) - .25) < float(student.gpa) < (float(grade) + .25):
+                    print(f'{student.student_id}, {student.first_name}, {student.last_name}, {student.gpa}')
+
