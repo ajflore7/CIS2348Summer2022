@@ -1,0 +1,2 @@
+# Anthony Flores 1792816
+user_input = input('Enter major and GPA or enter "q" to quit: \n')
